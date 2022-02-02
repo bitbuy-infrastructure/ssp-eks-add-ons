@@ -5,14 +5,14 @@ metadata:
   name: aws-for-fluent-bit
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io    
+  - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: {{ .Values.repo_url }}
     path: add-ons/aws-for-fluent-bit
     targetRevision: HEAD
-    helm: 
+    helm:
       parameters:
       - name: aws-for-fluent-bit.cloudWatch.region
         value: {{ .Values.region }}
@@ -30,14 +30,14 @@ spec:
         value: {{ .Values.region }}
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-system
+    namespace: logging
   syncPolicy:
     automated:
-      prune: true    
+      prune: true
     retry:
       limit: 1
       backoff:
-        duration: 5s 
-        factor: 2 
-        maxDuration: 1m  
+        duration: 5s
+        factor: 2
+        maxDuration: 1m
 {{- end -}}
