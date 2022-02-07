@@ -25,24 +25,24 @@ spec:
       - name: aws-for-fluent-bit.cloudWatch.logGroupName
         value: {{ .Values.awsForFluentBit.logGroupName }}
       - name: aws-for-fluent-bit.firehose.enabled
-        value: {{ .Values.firehose.enabled }}
+        value: {{ .Values.awsForFluentBit.firehose.enabled }}
       - name: aws-for-fluent-bit.firehose.region
         value: {{ .Values.region }}
       - name: aws-for-fluent-bit.kinesis.enabled
-        value: {{ .Values.kinesis.enabled }}
+        value: {{ .Values.awsForFluentBit.kinesis.enabled }}
       - name: aws-for-fluent-bit.kinesis.region
         value: {{ .Values.region }}
       - name: aws-for-fluent-bit.elasticsearch.enabled
-        value: {{ .Values.elasticsearch.enabled }}
+        value: {{ .Values.awsForFluentBit.elasticsearch.enabled }}
       - name: aws-for-fluent-bit.elasticsearch.region
         value: {{ .Values.region }}
   destination:
     server: https://kubernetes.default.svc
-    {{- if .Values.awsForFluentBit.namesapce -}}
+    {{ if .Values.awsForFluentBit.namesapce }}
     namespace: {{ .Values.awsForFluentBit.namesapce }}
-    {{- else -}}
+    {{ else }}
     namespace: kube-system
-    {{- end -}}
+    {{ end }}
   syncPolicy:
     automated:
       prune: true
